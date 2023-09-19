@@ -16,8 +16,8 @@ data_frame = pd.read_csv(URL_file_name)
 URL_list = data_frame['url'].to_list()
 
 # as the url list is too long in the csv file we will select only a few entries
-begin = 0
-end = 100
+begin = 35000
+end = 40000
 collection_list = URL_list[begin:end]
 
 # only for legitimate list
@@ -42,7 +42,9 @@ def create_structured_data(URL_list):
             print(i, "-->", e)
             continue
     return data_list
+
 data = create_structured_data(collection_list)
+
 columns = [
     'has_title',
     'has_input',
@@ -66,12 +68,33 @@ columns = [
     'number_of_paragraph',
     'number_of_script',
     'length_of_title',
-    'url'
+    'has_h1',
+    'has_h2',
+    'has_h3',
+    'length_of_text',
+    'number_of_clickable_button',
+    'number_of_a',
+    'number_of_img',
+    'number_of_div',
+    'number_of_figure',
+    'has_footer',
+    'has_form',
+    'has_text_area',
+    'has_iframe',
+    'has_text_input',
+    'number_of_meta',
+    'has_nav',
+    'has_object',
+    'has_picture',
+    'number_of_sources',
+    'number_of_span',
+    'number_of_table',
+    'URL'
 ]
 df = pd.DataFrame(data=data, columns=columns)
 # this df contains all legitimate urls hence we will label them as 0. Phishing url will become 1
-df['label'] = 0
-df.to_csv("structured_data_legitimate.csv", mode='a', index=False)
+df['label'] = 1
+df.to_csv("structured_data_phishing_2.csv", mode='a', index=False)
 
 
 
